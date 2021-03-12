@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const tokens = ["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"];
+    class Stack {
+        constructor() {
+            this._data = []
+        }
+        push(e) {
+            this._data.push(e)
+        }
+        pop() {
+            return this._data.pop()
+        }
+    }
+
+    const SIGN = {
+        '*': (a, b) => a * b,
+        '/': (a, b) => a / b | 0,
+        '+': (a, b) => a + b,
+        '-': (a, b) => a - b
+    }
+
+    const evalRPN = function(tokens) {
+        const stack = new Stack()
+        tokens.forEach(item => {
+            if (item in SIGN) {
+                const b = stack.pop()
+                const a = stack.pop()
+                const res = SIGN[item](a, b)
+                stack.push(res)
+            } else {
+                stack.push(+item)
+            }
+        })
+        return stack.pop()
+    };
+    console.log(evalRPN(tokens));
+</script>
+</body>
+</html>

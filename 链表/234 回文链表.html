@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    /* 请判断一个链表是否为回文链表。
+    * 输入: 1->2
+    * 输出: false
+    **/
+
+    function ListNode(val) {
+        this.val = val;
+        this.next = null;
+    }
+    const head = new ListNode(1);
+    head.next = new ListNode(1);
+    head.next.next = new ListNode(2);
+    head.next.next.next = new ListNode(1);
+    head.next.next.next.next = new ListNode(1);
+
+
+    const isPalindrome = function(head) {
+        // 1. 找到前半部分链表的尾节点。 快慢指针
+        // 2. 反转后半部分链表。递归 or 迭代
+        // 3. 判断是否为回文。迭代比对
+        // 4. 恢复链表。递归 or 迭代
+        // 5. 返回结果。
+
+        if (head === null || head.next === null) return true;
+
+        // 1
+        let slow = head;
+        let fast = head;
+        while (fast !== null && fast.next !== null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // 2
+        let later = slow;
+        let newLater = null;
+        while (later !== null) {
+            const tmp = later.next;
+            later.next = newLater;
+            newLater = later;
+            later = tmp;
+        }
+
+        // 3
+        let result = true;
+        let p1 = head;
+        let p2 = newLater;
+        while (result && p2 !== null) {
+            if (p1.val !== p2.val) result = false;
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+
+        // 4
+        let relater = newLater;
+        let newReLater = null;
+        while (relater !== null) {
+            const tmp = relater.next;
+            relater.next = newReLater;
+            newReLater = relater;
+            relater = tmp;
+        }
+
+        // 5
+        return result;
+    };
+
+    console.log(isPalindrome(head));
+
+    // 牛逼 虽然慢了点
+    // let str = '';
+    // let str_reverse = '';
+    // while(head){
+    //     str = str + head.val;
+    //     str_reverse = head.val + str_reverse;
+    //     head = head.next;
+    // }
+    // return str === str_reverse;
+</script>
+</body>
+</html>

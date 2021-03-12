@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const s = '  a good   example   ';
+    const reverseWords = function(s) {
+        return s.trim().split(/\s+/).reduce((sum, item) => [...sum, item.split('').reverse().join('')], []).join(' ');
+    };
+    console.log(reverseWords(s));
+</script>
+</body>
+</html>

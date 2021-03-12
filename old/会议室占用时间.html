@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const arr = [[14,18],[1,4],[7,9],[2,5]];
+    const getUseTime = function (arr) {
+        if (!arr.length) return [];
+        arr.sort((a, b) => a[0] - b[0]);
+        let result = [arr[0]];
+        for (let i = 0, l = arr.length; i < l; i++) {
+            const lastItem = result[result.length - 1];
+            if (lastItem[1] >= arr[i][0]) {
+                lastItem[1] = arr[i][1]
+            } else {
+                result.push(arr[i])
+            }
+        }
+        return result;
+    };
+    console.log(getUseTime(arr));
+
+
+    let x = 2, y = 3;
+    let z = x; t = y;
+    x = t; y = z;
+    console.log(x, y)
+</script>
+</body>
+</html>

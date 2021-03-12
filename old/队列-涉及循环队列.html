@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+
+    const MyCircularQueue = function(k) {
+        this.list = new Array(k);
+        this.front = 0; // 开始
+        this.end = 0; // 结束
+        this.max = k; // 当前占用的格子
+    };
+
+    MyCircularQueue.prototype.enQueue = function(value) {
+        if(this.isFull()) {
+            return false
+        } else {
+            this.list[this.end] = value
+            this.end = (this.end + 1) % this.max
+            return true
+        }
+    };
+
+    MyCircularQueue.prototype.deQueue = function() {
+        let v = this.list[this.front]
+        this.list[this.front] = undefined
+        if(v !== undefined ) {
+            this.front = (this.front + 1) % this.max
+            return true
+        } else {
+            return false
+        }
+    };
+
+    MyCircularQueue.prototype.Front = function() {
+        if(this.list[this.front] === undefined) {
+            return -1
+        } else {
+            return this.list[this.front]
+        }
+    };
+
+    MyCircularQueue.prototype.Rear = function() {
+        let end = this.end - 1
+        if(this.list[end < 0 ? this.max - 1 : end] === undefined) {
+            return -1
+        } else {
+            return this.list[end < 0 ? this.max - 1 : end]
+        }
+    };
+
+    MyCircularQueue.prototype.isEmpty = function() {
+        return this.front === this.end && !this.list[this.front]
+    };
+
+    MyCircularQueue.prototype.isFull = function() {
+        return (this.front === this.end) && !!this.list[this.front]
+    };
+
+    const obj = new MyCircularQueue(2);
+    console.log(obj.enQueue(4));  // 返回 true
+    console.log(obj.Rear());  // 返回 4
+    console.log(obj.enQueue(9));  // 返回 true
+    console.log(obj.deQueue());  // 返回 true
+    console.log(obj.Front());  // 返回 9
+</script>
+</body>
+</html>

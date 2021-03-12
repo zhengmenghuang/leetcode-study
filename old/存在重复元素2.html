@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const nums = [1,2,3,1,2,3], k = 2;
+  const containsNearbyDuplicate = function(nums, k) {
+    // for (let i = 0, l = nums.length; i < l; i++) {
+    //   if (i + 1 === l) return false;
+    //   const y = nums.indexOf(nums[i], i + 1);
+    //   if (y - i <= k && y !== i && y !== -1) return true;
+    // }
+    // return false
+
+    const hasMap = [];
+    for (let i = 0, l = nums.length; i < l; i++) {
+      if (hasMap[nums[i]] !== undefined && i - hasMap[nums[i]] <= k) {
+        return true
+      }
+      hasMap[nums[i]] = i;
+    }
+    return false
+  };
+  console.log(containsNearbyDuplicate(nums, k));
+</script>
+</body>
+</html>

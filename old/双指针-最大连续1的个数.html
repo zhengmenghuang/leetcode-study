@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const nums = [1,1,0,1,1,1];
+    const findMaxConsecutiveOnes = function(nums) {
+        return nums.join('').split('0').reduce((sum, item) => sum > item.length ? sum : item.length, 0)
+    };
+    console.log(findMaxConsecutiveOnes(nums));
+</script>
+</body>
+</html>

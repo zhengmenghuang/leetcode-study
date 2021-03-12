@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    * 给定正整数n，找到若干个完全平方数（比如1, 4, 9, 16, ...）使得它们的和等于 n。你需要让组成和的完全平方数的个数最少。
+    *
+    * 示例1:
+    * 输入: n = 12
+    * 输出: 3
+    * 解释: 12 = 4 + 4 + 4.
+    **/
+    const n = 666607;
+    const numSquares = function(n) {
+        const dp = [...Array(n+1)].map(_=>0); // 数组长度为n+1，值均为0
+        for (let i = 1; i <= n; i++) {
+            dp[i] = i; // 最坏的情况就是每次+1
+            for (let j = 1; i - j * j >= 0; j++) {
+                dp[i] = Math.min(dp[i], dp[i - j * j] + 1); // 动态转移方程
+            }
+        }
+        return dp[n];
+    };
+    console.log(numSquares(n));
+</script>
+</body>
+</html>

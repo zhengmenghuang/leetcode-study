@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const list1 = ["Shogun","Tapioca Express","Burger King","KFC"];
+  const list2 = ["KFC","Shogun","Burger King"];
+  const findRestaurant = function(list1, list2) {
+    if (list1.length < list2.length) [list1, list2] = [list2, list1];
+    let sum = -1, result = [];
+    for (let i = 0, l = list2.length; i < l; i++) {
+      const y = list1.indexOf(list2[i]);
+      if (y !== -1){
+        if (sum === -1 || i + y === sum) {
+          sum = i + y;
+          result.push(list2[i])
+        }
+        if (i  + y < sum) {
+          sum = i + y;
+          result = [list2[i]]
+        }
+      }
+    }
+    return result;
+  };
+  console.log(findRestaurant(list1, list2))
+</script>
+</body>
+</html>

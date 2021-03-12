@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+  const J = "a", S = "AAbbbb";
+  const numJewelsInStones = function(J, S) {
+    J = J.split('');
+    S = S.split('');
+    return J.reduce((sum, n) => sum += S.filter(p => n === p).length, 0);
+  };
+  console.log(numJewelsInStones(J, S))
+</script>
+</body>
+</html>

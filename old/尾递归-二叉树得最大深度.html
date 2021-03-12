@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /**
+     * Definition for a binary tree node.
+     * function TreeNode(val) {
+     *     this.val = val;
+     *     this.left = this.right = null;
+     * }
+     */
+    /**
+     * @param {TreeNode} root
+     * @return {number}
+     */
+    const maxDepth = function(root) {
+        // if (root == null) {
+        //     return 0;
+        // } else {
+        //     const left_height = maxDepth(root.left);
+        //     const right_height = maxDepth(root.right);
+        //     return Math.max(left_height, right_height) + 1;
+        // }
+
+        // 看不懂
+        if (!root) return 0;
+        let queue = [root];
+        let deep = 1;
+        while (queue.length) {
+            let arr = [];
+            let len = queue.length;
+            for (let i = 0; i < len; i++) {
+                let curNode = queue.shift();
+                if (curNode.left || curNode.right) {
+                    curNode.left && arr.push(curNode.left);
+                    curNode.right && arr.push(curNode.right);
+                }
+            }
+            if(arr.length) {
+                deep++;
+                queue = queue.concat(arr);
+            }
+        }
+        return deep;
+    };
+</script>
+</body>
+</html>

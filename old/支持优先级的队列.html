@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const a = '';
+    const getResult = function (a) {
+        if (!a) return '';
+        let newA = a.replace(/\(|\)/g, '').split(',');
+        let newA2 = [];
+        for (let i = 0, l = newA.length; i < l; i+=2) {
+            newA2.push([newA[i], newA[i+1]])
+        }
+        newA2.sort((a, b) => b[1] - a[1]);
+        let newA3 = [newA2[0][0]];
+        for (let i = 1, l = newA2.length; i < l; i++) {
+            if (!(newA2[i][0] === newA2[i-1][0] && newA2[i][1] === newA2[i-1][1])) {
+                newA3.push(newA2[i][0])
+            }
+        }
+        return newA3.join(',')
+    };
+    console.log(getResult(a));
+</script>
+</body>
+</html>

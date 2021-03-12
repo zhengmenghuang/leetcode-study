@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+  const strs = ["eat", "tea", "tan", "ate", "nat", "bat"];
+  const groupAnagrams = function(strs) {
+    // let hash = new Map()
+    //
+    // for(let i = 0; i < strs.length; i++) {
+    //   let str = strs[i].split('').sort().join()
+    //   if(hash.has(str)) {
+    //     let temp = hash.get(str)
+    //     temp.push(strs[i])
+    //     hash.set(str, temp)
+    //   } else {
+    //     hash.set(str, [strs[i]])
+    //   }
+    // }
+    //
+    // return [...hash.values()]
+
+    const hasMap = {};
+    for(let i = 0, l = strs.length; i < l; i++) {
+      let str = strs[i].split('').sort().join().replace(/,/g, '');
+      if (hasMap[str] !== undefined) {
+        hasMap[str].push(strs[i]);
+      } else {
+        hasMap[str] = [strs[i]];
+      }
+    }
+
+    const result = [];
+    for(let i in hasMap) {
+      result.push(hasMap[i])
+    }
+    return result;
+  };
+  console.log(groupAnagrams(strs))
+</script>
+</body>
+</html>

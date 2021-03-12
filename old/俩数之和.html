@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content= "viewport-fit=cover, width=device-width, initial-scale=1.0, user-scalable=no" >
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+  const nums = [3,2,4], target = 6;
+
+  const twoSum = function(nums, target) {
+    const map = [];
+    for (let i = 0, l = nums.length; i < l; i++) {
+      const dif = target - nums[i];
+      if (map[dif] !== undefined) return [map[dif], i];
+      map[nums[i]] = i;
+    }
+    return new Error();
+  };
+
+  console.log(twoSum(nums, target))
+</script>
+</body>
+</html>

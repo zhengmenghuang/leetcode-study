@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function ListNode(val) {
+        this.val = val;
+        this.next = null;
+    }
+
+    const a = new ListNode(1);
+    a.next = new ListNode(2);
+    a.next.next = new ListNode(4);
+
+    const b = new ListNode(1);
+    b.next = new ListNode(3);
+    b.next.next = new ListNode(4);
+
+    const addTwoNumbers = function(l1, l2) {
+        let dummyHead = new ListNode(0);
+        let p = l1, q = l2, curr = dummyHead;
+        let carry = 0;
+        while (p !== null || q !== null) {
+            let x = (p !== null) ? p.val : 0;
+            let y = (q !== null) ? q.val : 0;
+            let sum = carry + x + y;
+            carry = Math.floor(sum / 10);
+            curr.next = new ListNode(sum % 10);
+            curr = curr.next;
+            if (p !== null) p = p.next;
+            if (q !== null) q = q.next;
+        }
+        if (carry > 0) {
+            curr.next = new ListNode(carry);
+        }
+        return dummyHead.next;
+    };
+
+    console.log(addTwoNumbers(a, b));
+</script>
+</body>
+</html>

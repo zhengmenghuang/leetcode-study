@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。
+
+说明:
+1 ≤ m ≤ n ≤ 链表长度。
+
+示例:
+
+输入: 1->2->3->4->5->NULL, m = 2, n = 4
+输出: 1->4->3->2->5->NULL
+
+<script>
+    function ListNode(val, next) {
+        this.val = (val===undefined ? 0 : val)
+        this.next = (next===undefined ? null : next)
+    }
+    const head = new ListNode(1);
+    head.next = new ListNode(2);
+    head.next.next = new ListNode(3);
+    head.next.next.next = new ListNode(4);
+    head.next.next.next = new ListNode(5);
+
+    const reverseBetween = function(head, left, right) {
+        // 设置 dummyNode 是这一类问题的一般做法
+        const newHead = new ListNode(null, head);
+        let pre = newHead;
+        for (let i = 0; i < left - 1; ++i) {
+            pre = pre.next;
+        }
+
+        let cur = pre.next;
+        for (let i = 0; i < right - left; ++i) {
+            const next = cur.next;
+            cur.next = next.next;
+            next.next = pre.next;
+            pre.next = next;
+        }
+        return newHead.next;
+    };
+
+    console.log(reverseBetween(head, 2, 4));
+
+</script>
+</body>
+</html>

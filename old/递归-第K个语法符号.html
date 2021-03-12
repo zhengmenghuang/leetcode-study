@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /* 在第一行我们写上一个 0。接下来的每一行，将前一行中的0替换为01，1替换为10。
+     * 给定行数 N 和序数 K，返回第 N 行中第 K个字符。（K从1开始）
+     *
+     * 两种情况,若K为奇数位置，则当前位置和N-1时(K+1)/2的位置值相同；
+     * 若K为偶数位置，则当前位置和N-1时(K+1)/2的位置值相反；
+     * 当循环到最后时 就是 N = 0 K =1 所以和原本没有变化就是0 和原本有变化就是1
+     * */
+
+    const N = 30, K = 434991989;
+    const kthGrammar = function(N, K) {
+        let result = true;
+        while (--N) {
+            if (!(K & 1)) {
+                result = !result
+            }
+            K = (K+1) >> 1
+        }
+        return result ? 0 : 1
+
+
+        // return (~K & 1) ^ kthGrammar(N-1, (K+1) >> 2);
+    };
+    console.log(kthGrammar(N, K))
+</script>
+</body>
+</html>

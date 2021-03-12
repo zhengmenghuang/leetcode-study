@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const numRows = 3;
+    const generate = function(numRows) {
+        let arr = [];
+        let result = [];
+        for (let i = 0; i <= numRows; i++) {
+            for (let x = 0; x <= i; x++) {
+                if (x === 0 || i === x) {
+                    arr.push(1)
+                } else {
+                    arr.push(result[x - 1] + result[x])
+                }
+            }
+            result = arr;
+            arr = []
+        }
+        return result;
+    };
+    console.log(generate(numRows));
+</script>
+</body>
+</html>

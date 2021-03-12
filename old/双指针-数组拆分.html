@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const nums = [1,4,3,2];
+    const arrayPairSum = function(nums) {
+        if (!nums || !nums.length) return 0;
+        let bucket = new Array(20001).fill(0); // 创建足够大的数组，作为桶
+        for (let i = 0; i < nums.length; i++) {
+            bucket[nums[i] + 10000]++ // 将所有元素放到一个个桶里，转为正数存
+        }
+        let flag = true;
+        let res = 0;
+        for (let i = 0; i < bucket.length; i++) { // 遍历bucket数组
+            while (bucket[i] > 0) { // bucket[i]>0说明还能从中取出数
+                if (flag) { // 奇次就累加，偶次就不累加
+                    res += (i - 10000) // 累加的时候 -10000 还原回原本的数
+                }
+                flag = !flag;
+                bucket[i]-- // 从桶中取一次就少一个数
+            }
+        }
+        return res
+    };
+    console.log(arrayPairSum(nums));
+</script>
+</body>
+</html>

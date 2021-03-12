@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  const nums = [-1,-1,-1,0,1,1];
+  const pivotIndex = function(nums) {
+    const l = nums.length;
+    if (l < 3) return -1;
+    const sum = [];
+    for(let i = 0; i < l; i++) {
+      if (i === 0) {
+        sum.push(nums[0])
+      } else {
+        sum.push(sum[i - 1] + nums[i])
+      }
+    }
+
+    for(let i = 0; i < l; i++) {
+      if (i === 0 && sum[l - 1] - sum[0] === 0) return 0;
+      if (sum[i - 1] + sum[i] === sum[l - 1]) return i;
+    }
+    return -1
+  };
+  console.log(pivotIndex(nums))
+</script>
+</body>
+</html>

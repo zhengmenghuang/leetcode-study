@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /**
+     * 给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
+     * 示例:
+     * 输入: 1->1->2
+     * 输出: 1->2
+     */
+
+    function ListNode(val) {
+        this.val = val;
+        this.next = null;
+    }
+    const head = new ListNode(1);
+    head.next = new ListNode(1);
+    head.next.next = new ListNode(2);
+
+    const deleteDuplicates = function(head) {
+        const hasMap = {};
+
+        let newHead = new ListNode(null, head),
+            prev = newHead,
+            curr = head;
+
+        while (curr) {
+            if (hasMap[curr.val] !== undefined) {
+                prev.next = curr.next;
+            } else {
+                hasMap[curr.val] = true;
+                prev = curr;
+            }
+            curr = curr.next;
+        }
+        return newHead.next;
+
+        // 上面的解法针对的是非排序链表
+        // let current = head;
+        // while (current != null && current.next != null) {
+        //     if (current.next.val === current.val) {
+        //         current.next = current.next.next;
+        //     } else {
+        //         current = current.next;
+        //     }
+        // }
+        // return head;
+    };
+
+    console.log(deleteDuplicates(head))
+</script>
+</body>
+</html>
