@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+给定一个二叉树，返回它的 后序遍历。
+
+示例:
+
+输入: [1,null,2,3]
+1
+\
+2
+/
+3
+
+输出: [3,2,1]
+进阶:递归算法很简单，你可以通过迭代算法完成吗？
+
+<script>
+  /**
+   * Definition for a binary tree node.
+   * function TreeNode(val, left, right) {
+   *     this.val = (val===undefined ? 0 : val)
+   *     this.left = (left===undefined ? null : left)
+   *     this.right = (right===undefined ? null : right)
+   * }
+   */
+
+  /**
+   * @return {number[]}
+   * @param val
+   * @param left
+   * @param right
+   */
+  function TreeNode(val, left, right) {
+    this.val = (val===undefined ? 0 : val)
+    this.left = (left===undefined ? null : left)
+    this.right = (right===undefined ? null : right)
+  }
+
+  // [1,null,2,3]
+
+  const postorderTraversal = function(root) {
+    if (!root) return [];
+
+    const ans = [];
+    const s1 = [];
+    const s2 = [];
+    s1.push(root);
+    s2.push(0);
+
+    while (s1.length) {
+      const status = s2[s2.length - 1];
+      s2.pop();
+      switch (status) {
+        case 0:
+          s2.push(1);
+          if (s1[s1.length - 1].left) {
+            s1.push(s1[s1.length - 1].left);
+            s2.push(0)
+          }
+          break;
+        case 1:
+          s2.push(2);
+          if (s1[s1.length - 1].right) {
+            s1.push(s1[s1.length - 1].right);
+            s2.push(0);
+          }
+          break;
+        case 2:
+          ans.push(s1[s1.length - 1].val);
+          s1.pop();
+      }
+    }
+
+    return ans;
+  };
+
+
+</script>
+</body>
+</html>
