@@ -37,6 +37,7 @@ logs =
 1 <= n <= 100
 
 <script>
+  // 一段一段加
   const n = 2,
   logs =
     ["0:start:0",
@@ -44,7 +45,30 @@ logs =
       "1:end:5",
       "0:end:6"]
   const exclusiveTime = function(n, logs) {
-    // todo hzm
+    let res = Array(n).fill(0);
+
+    let go = 0;
+
+    function next() {
+      let dure = 0;
+      const start = logs[go].split(':');
+      while (go < logs.length - 1 && logs[go + 1].indexOf('s') !== -1) {
+        go++;
+        dure = dure + next();
+      }
+
+      const end = logs[++go].split(':');
+      let sum = Number(end[2]) - Number(start[2]) + 1 - dure;
+      res[Number(end[0])] += sum;
+      return sum + dure;
+    }
+
+    while (go < logs.length) {
+      next();
+      go++;
+    }
+
+    return res
   };
   console.log(exclusiveTime(n, logs));
 </script>
