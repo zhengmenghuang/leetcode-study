@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+</head>
+<body>
+题目描述 把出栈值和下标的积求出来
+
+<script>
+  $.get('./data.txt').then(res => {
+    console.log(res.split('\n'));
+    const arr = res.split('\n');
+    const stack = [];
+    const result  = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === 'pop') {
+        result.push(+stack.pop());
+      } else {
+        let obj = arr[i].split(' ');
+        stack.push(obj[1])
+      }
+    }
+    console.log(stack, result)
+    let sum = result.reduce((sum, item, index) => {
+      return sum + item * (index + 1);
+    }, 0)
+    console.log(sum)
+  })
+</script>
+</body>
+</html>
