@@ -53,7 +53,14 @@
    * @return {number}
    */
   const kthLargest = function(root, k) {
-    // todo hzm
+    const arr = [];
+    print(root)
+    function print(root) {
+      root.right && print(root.right)
+      root.val && arr.push(root.val);
+      root.left && print(root.left)
+    }
+    return arr[k - 1];
   };
 </script>
 </body>

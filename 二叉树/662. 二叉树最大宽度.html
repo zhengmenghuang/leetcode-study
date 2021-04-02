@@ -75,7 +75,22 @@
    * @return {number}
    */
   const widthOfBinaryTree = function(root) {
+    if (!root) return 0;
 
+    // 定义一个二维数组表示存储当前点 序号和节点
+    let max = 0n, que = [[0n, root]];
+    while(que.length) {
+      let width = que[que.length - 1][0] - que[0][0] + 1n;
+      if (width > max) max = width;
+      let temp = [];
+      for (const[i, q] of que) {
+        q.left && temp.push([i * 2n, q.left]);
+        q.right && temp.push([i * 2n + 1n, q.right]);
+      }
+      que = temp
+    }
+
+    return max;
   };
 </script>
 </body>

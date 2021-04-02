@@ -53,7 +53,8 @@
    * @return {number}
    */
   const countNodes = function(root) {
-    // todo hzm
+    if (!root) return 0;
+    return countNodes(root.left) + countNodes(root.right) + 1;
   };
 </script>
 </body>

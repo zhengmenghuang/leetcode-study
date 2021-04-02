@@ -38,7 +38,25 @@
    * @return {TreeNode}
    */
   const buildTree = function(preorder, inorder) {
-    // todo hzm
+    // 转换 inorder 数组
+    const map = new Map();
+    inorder.forEach((item, i) => map.set(item, i));
+
+    // 递归函数
+    const helper = function (pStart, pEnd, iStart, iEnd) {
+      if (pStart > pEnd) return null;
+      let rootVal = preorder[pStart];
+      let root = new TreeNode(rootVal);
+      let mid = map.get(rootVal);
+      let leftNum = mid - iStart;
+
+      root.left = helper(pStart + 1, pStart + leftNum, iStart, mid - 1);
+      root.right = helper(pStart + leftNum + 1, pEnd, mid + 1, iEnd);
+
+      return root;
+    }
+
+    return helper(0, preorder.length - 1, 0, inorder.length - 1);
   };
 </script>
 </body>
