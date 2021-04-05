@@ -18,7 +18,7 @@
      * @return {number}
      */
     const maxDepth = function(root) {
-        // if (root == null) {
+        // if (root === null) {
         //     return 0;
         // } else {
         //     const left_height = maxDepth(root.left);
@@ -26,26 +26,18 @@
         //     return Math.max(left_height, right_height) + 1;
         // }
 
-        // 看不懂
         if (!root) return 0;
-        let queue = [root];
-        let deep = 1;
-        while (queue.length) {
-            let arr = [];
-            let len = queue.length;
-            for (let i = 0; i < len; i++) {
-                let curNode = queue.shift();
-                if (curNode.left || curNode.right) {
-                    curNode.left && arr.push(curNode.left);
-                    curNode.right && arr.push(curNode.right);
-                }
+        let stack = [root], deep = 0;
+        while (stack.length) {
+            let temp = []
+            for (let i = 0; i < stack.length; i++) {
+                stack[i].left && temp.push(stack[i].left);
+                stack[i].right && temp.push(stack[i].right);
             }
-            if(arr.length) {
-                deep++;
-                queue = queue.concat(arr);
-            }
+            stack = temp;
+            deep++;
         }
-        return deep;
+        return deep
     };
 </script>
 </body>
