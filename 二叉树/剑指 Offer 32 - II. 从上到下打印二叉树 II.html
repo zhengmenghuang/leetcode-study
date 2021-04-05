@@ -48,7 +48,18 @@
    * @return {number[][]}
    */
   const levelOrder = function(root) {
-    // todo hzm
+    if (!root) return [];
+    let stack = [root], result = [];
+    while (stack.length) {
+      let temp = []
+      result.push(stack.reduce((sum, item) => {
+        item.left && temp.push(item.left);
+        item.right && temp.push(item.right);
+        return [...sum, item.val];
+      }, []));
+      stack = temp;
+    }
+    return result
   };
 </script>
 </body>
