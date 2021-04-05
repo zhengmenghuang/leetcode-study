@@ -41,7 +41,23 @@
    * @return {number[][]}
    */
   const zigzagLevelOrder = function(root) {
-    // todo hzm
+    if (!root) return [];
+    let stack = [root], result = [], needReverse = true;
+    while (stack.length) {
+      let temp = []
+      result.push(stack.reduce((sum, item) => {
+        item.left && temp.push(item.left);
+        item.right && temp.push(item.right);
+        if (needReverse) {
+          return [...sum, item.val];
+        } else {
+          return [item.val, ...sum];
+        }
+      }, []));
+      stack = temp;
+      needReverse = !needReverse;
+    }
+    return result
   };
 </script>
 </body>
