@@ -54,8 +54,12 @@
    * @return {number[]}
    */
   const preorderTraversal = function(root) {
-    // todo hzm
-    if (!root.length) return [];
+    if (!root) return [];
+    const result = [];
+    result.push(root.val);
+    result.push(...preorderTraversal(root.left));
+    result.push(...preorderTraversal(root.right));
+    return result;
   };
 </script>
 </body>
