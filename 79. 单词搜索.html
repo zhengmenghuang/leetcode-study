@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+给定一个二维网格和一个单词，找出该单词是否存在于网格中。
+
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+
+
+
+示例:
+
+board =
+[
+['A','B','C','E'],
+['S','F','C','S'],
+['A','D','E','E']
+]
+
+给定 word = "ABCCED", 返回 true
+给定 word = "SEE", 返回 true
+给定 word = "ABCB", 返回 false
+
+
+提示：
+
+board 和 word 中只包含大写和小写英文字母。
+1 <= board.length <= 200
+1 <= board[i].length <= 200
+1 <= word.length <= 10^3
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/word-search
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+<script>
+  /**
+   * @param {character[][]} board
+   * @param {string} word
+   * @return {boolean}
+   */
+  const board = [["a","a","b","a","a","b"],["b","a","b","a","b","b"],["b","a","b","b","b","b"],["a","a","b","a","b","a"],["b","b","a","a","a","b"],["b","b","b","a","b","a"]]
+  , word = "aaaababab";
+
+  function checked(positions, arr, board) {
+    // 取最后一个遍历四个方向 把符合条件放入集合
+    let endIndex = positions[positions.length - 1];
+    let end = arr.pop()
+    const result = [];
+
+    console.log(52, positions, end)
+    // 上
+    if (endIndex[0] - 1 >= 0 && board[endIndex[0] - 1][endIndex[1]] === end && !positions.find(item => item[0] === endIndex[0] - 1 && item[1] === endIndex[1])) {
+      result.push([endIndex[0] - 1, endIndex[1]])
+    }
+
+    // 下
+    if (endIndex[0] + 1 <= board.length - 1 && board[endIndex[0] + 1][endIndex[1]] === end && !positions.find(item => item[0] === endIndex[0] + 1 && item[1] === endIndex[1])) {
+      result.push([endIndex[0] + 1, endIndex[1]])
+    }
+
+    // 左
+    if (endIndex[1] - 1 >= 0 && board[endIndex[0]][endIndex[1] - 1] === end && !positions.find(item => item[0] === endIndex[0] && item[1] === endIndex[1] - 1)) {
+      result.push([endIndex[0], endIndex[1] - 1])
+    }
+
+    // 右
+    if (endIndex[1] + 1 <= board[0].length - 1 && board[endIndex[0]][endIndex[1] + 1] === end && !positions.find(item => item[0] === endIndex[0] && item[1] === endIndex[1] + 1)) {
+      result.push([endIndex[0], endIndex[1] + 1])
+    }
+
+    console.log(73, result, arr)
+    // 判断集合的数量 和 arr
+    if (result.length && !arr.length) return true;
+
+    if (result.length && arr.length) {
+      for (let i = 0; i < result.length; i++) {
+        if (checked([...positions, result[i]], [...arr], board)) return true
+      }
+      return false;
+    }
+
+    if (!result.length) return false;
+  }
+
+  const exist = function(board, word) {
+    if (board.length === 1) return  board[0].join('').indexOf(word) > -1 || board[0].reverse().join('').indexOf(word) > -1
+    const arr = word.split('');
+    const end = arr.pop();
+    let result = [];
+    board.forEach((n, i) => n.forEach((p, j) => {
+      if (p === end) {
+        result.push([i, j])
+      }
+    }))
+
+    if (result.length) {
+      if (arr.length) {
+        for (let i = 0; i < result.length; i++) {
+          if (checked([result[i]], [...arr], board)) return true
+        }
+        return false;
+      } else {
+        return true
+      }
+    } else {
+      return false;
+    }
+
+  };
+
+  console.log(exist(board, word));
+</script>
+</body>
+</html>
