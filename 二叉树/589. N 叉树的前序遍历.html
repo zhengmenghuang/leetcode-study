@@ -53,7 +53,14 @@ N 叉树的高度小于或等于 1000
    * @return {number[]}
    */
   const preorder = function(root) {
-    // todo hzm
+    if (!root) return [];
+    let arr = [];
+    arr.push(root.val);
+    for (item in root.children) {
+      arr.push(...preorder(root.children[item]));
+    }
+
+    return arr;
   };
 </script>
 </body>
