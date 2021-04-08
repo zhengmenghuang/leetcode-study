@@ -51,9 +51,22 @@
    * @param {TreeNode} root
    * @return {boolean}
    */
-  var isBalanced = function(root) {
-    // todo hzm
+  const isBalanced = function(root) {
+    return height(root) >= 0;
   };
+
+  function height(root) {
+    if (!root) return 0;
+
+    const l_height = height(root.left);
+    const r_height = height(root.right);
+
+    if (l_height === -1 || r_height === -1 || Math.abs(l_height - r_height) > 1) {
+      return -1
+    } else {
+      return Math.max(l_height, r_height) + 1;
+    }
+  }
 </script>
 </body>
 </html>
