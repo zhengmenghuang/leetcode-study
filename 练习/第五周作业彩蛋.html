@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+将数字1-10000（包含1和10000），奇数入栈，偶数入队列。
+然后将栈和队列中元素分别出栈和出队，将依次出栈和出队的数字分别俩俩相乘，然后将乘机累加求和，最后将和除以17，即为答案。
+答案向下取整。
+
+<script>
+  const stack = [];
+  const queue = [];
+  for (let i = 1; i <= 10000; i++) {
+    if (i % 2) {
+      stack.push(i)
+    } else {
+      queue.push(i)
+    }
+  }
+
+  let sum = 0
+  while (stack.length) {
+    sum += stack.pop() * queue.shift()
+  }
+
+  console.log(sum / 17);
+</script>
+</body>
+</html>
