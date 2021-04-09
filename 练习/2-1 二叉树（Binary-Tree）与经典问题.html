@@ -3,8 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
 </head>
 <body>
 // todo hzm  第四周的彩蛋作业
+
+题目：给出前序、中序数组，算出后续数组，下标+1 * value 和 就是答案
+
+<script>
+  $.get('./2-1-彩蛋数据.txt').then(res => {
+    const  arr = res.split('\n');
+    const preorder = arr[1].split(' ');
+    const inorder = arr[3].split(' ');
+
+    // 首先还原二叉树
+    const tree = buildTree(preorder, inorder);
+
+    // 得到后续遍历
+    const postorder = postorderTraversal(tree);
+
+    // 开始遍历得到值
+    let result = 0;
+    for (let i = 0; i < postorder.length; i++) {
+      result += ((i + 1) * postorder[i])
+    }
+
+    console.log(result)
+  })
+
+  function TreeNode(val, left, right) {
+    this.val = (val===undefined ? 0 : val)
+    this.left = (left===undefined ? null : left)
+    this.right = (right===undefined ? null : right)
+  }
+
+  function buildTree(preorder, inorder) {
+    // 转换 inorder 数组
+    const map = new Map();
+    inorder.forEach((item, i) => map.set(item, i));
+
+    // 递归函数
+    const helper = function (pStart, pEnd, iStart, iEnd) {
+      if (pStart > pEnd) return null;
+      let rootVal = preorder[pStart];
+      let root = new TreeNode(rootVal);
+      let mid = map.get(rootVal);
+      let leftNum = mid - iStart;
+
+      root.left = helper(pStart + 1, pStart + leftNum, iStart, mid - 1);
+      root.right = helper(pStart + leftNum + 1, pEnd, mid + 1, iEnd);
+
+      return root;
+    }
+
+    return helper(0, preorder.length - 1, 0, inorder.length - 1);
+  }
+
+  function postorderTraversal(root) {
+    if (!root) return [];
+    const ans = [];
+    ans.push(...postorderTraversal(root.left));
+    ans.push(...postorderTraversal(root.right));
+    ans.push(root.val);
+
+    return ans;
+  }
+</script>
 </body>
 </html>
