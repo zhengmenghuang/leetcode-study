@@ -54,11 +54,29 @@
    * @return {number[]}
    */
   const preorderTraversal = function(root) {
+    // if (!root) return [];
+    // const result = [];
+    // result.push(root.val);
+    // result.push(...preorderTraversal(root.left));
+    // result.push(...preorderTraversal(root.right));
+    // return result;
+
     if (!root) return [];
+
+    const stack = []; // 模拟栈
+    stack.push(root);
+
     const result = [];
-    result.push(root.val);
-    result.push(...preorderTraversal(root.left));
-    result.push(...preorderTraversal(root.right));
+
+    while (stack.length) {
+      const node = stack.pop();
+
+      result.push(node.val);
+
+      node.right && stack.push(node.right);
+      node.left && stack.push(node.left);
+    }
+
     return result;
   };
 </script>
